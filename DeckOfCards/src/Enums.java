@@ -1,4 +1,6 @@
 
+
+
 public class Enums {
 
 	public enum Value{
@@ -8,4 +10,9 @@ public class Enums {
 		SPADES, HEARTS, DIAMONDS, CLUBS
 	}
 	
+	public enum Position {
+		TOP, BOTTOM, RANDOM
+	}
+
+
 }

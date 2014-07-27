@@ -1,17 +1,21 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
+
+
 
 
 public class DeckOfCards {
 
-	public List<Card> deckOfCards;
+	public List<Card> cards;
+	Random rand = new Random();
 	
-	
-	/*
-	 * Creates a new DeckOfCards Object
+	/**
+	 * Creates an unshuffled deck of cards
 	 */
 	public DeckOfCards(){		
-		List<Card> deckOfCards = new  ArrayList <Card> () ;
+		List<Card> cards = new  ArrayList <Card> () ;
 		// standard playing deck has 52 cards
 		for (int i=0; i< 52 ; i++){
 			int suitTypeInt = i % 4;
@@ -76,10 +80,86 @@ public class DeckOfCards {
 				faceValue = Enums.Value.KING;
 				break;
 			}
-			Card newCard = new Card(suitType, faceValue);
+			Card newCard = new Card(suitType, faceValue, i);
 			//add new Card to deck of cards
-			deckOfCards.add(newCard);
+			cards.add(newCard);
 		}
-		this.deckOfCards = deckOfCards;
+		this.cards = cards;
 	}
+	
+	
+	/**
+	 * 
+	 * @return shuffled version of current deck of cards
+	 */
+	public DeckOfCards shuffleDeckOfCards(){
+		DeckOfCards shuffledDeck = new DeckOfCards();
+		List <Card> shuffledCards = new ArrayList <Card>();
+		Iterator<Card> iterator = this.getCards().iterator();
+		while (iterator.hasNext()){
+		    
+		    // nextInt is normally exclusive of the top value,
+		    // so add 1 to make it inclusive
+		    int randomNum = rand.nextInt((51 - 0) + 1) + 0;
+		    shuffledCards.add(randomNum, iterator.next());
+		}
+		shuffledDeck.setDeckOfCards(shuffledCards);
+		return shuffledDeck;
+
+	}
+
+
+	public List<Card> getCards() {
+		return this.cards;
+	}
+
+
+	private void setDeckOfCards(List<Card> cards) {
+		this.cards = cards;
+	}
+	
+	/**
+	 * 
+	 * @return number of cards in the current deck
+	 */
+	public int getNumberOfCardsInDeck(){
+		if(this.getCards() == null )
+			return 0;
+		else
+			return this.getCards().size();
+	}
+	
+	/**
+	 * 
+	 * @param pos
+	 * @param numberOfCards
+	 * @return removes numberOfCards from current deck. Removes cards from either top, bottom, or random 
+	 * spot in the deck given by pos paramter.
+	 */
+	public List<Card> getCardsFromDeck( Enums.Position pos, int numberOfCards){
+		List <Card> cardsFromDeck = new ArrayList <Card>();
+		
+		switch(pos){
+		case TOP:
+			for (int i=0; i<numberOfCards; i++){
+				cardsFromDeck.add(this.getCards().remove(i));
+			}
+			break;
+		case BOTTOM:
+			for (int i = this.getNumberOfCardsInDeck()-1; i<numberOfCards; i--){
+				cardsFromDeck.add(this.getCards().remove(i));
+			}
+			break;
+		case RANDOM:
+			for(int i=0; i< numberOfCards; i++){
+			int randomNum = rand.nextInt((this.getNumberOfCardsInDeck()-1 - 0) + 1) + 0;
+			cardsFromDeck.add(this.getCards().remove(randomNum));
+			}
+			break;
+		}
+		return cardsFromDeck;
+	}
+	
+
+	
 }
