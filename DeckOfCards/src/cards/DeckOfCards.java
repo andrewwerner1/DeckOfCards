@@ -1,6 +1,5 @@
 package cards;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -81,7 +80,7 @@ public class DeckOfCards {
 				faceValue = Enums.Value.KING;
 				break;
 			}
-			Card newCard = new Card(suitType, faceValue, i);
+			Card newCard = new Card(suitType, faceValue);
 			//add new Card to deck of cards
 			cards.add(newCard);
 		}
@@ -142,8 +141,8 @@ public class DeckOfCards {
 	/**
 	 * 
 	 * @param pos
-	 * @param numberOfCards
-	 * @return removes numberOfCards from current deck. Removes cards from either top, bottom, or random 
+	 * @param numberOfCards -- gives size of list removed
+	 * @return removes list of cards from current deck.  Removes cards from either top, bottom, or random 
 	 * spot in the deck given by pos paramter.
 	 */
 	public List<Card> getCardsFromDeck( Enums.Position pos, int numberOfCards){
@@ -170,6 +169,12 @@ public class DeckOfCards {
 		return cardsFromDeck;
 	}
 	
+	/**
+	 * 
+	 * @param pos
+	 * @param list of cards
+	 * @return true if list of cards added successfully, false otherwise
+	 */
 	public boolean addCardsToDeck(Enums.Position pos, List<Card> cards){
 		if(cards == null || cards.size()==0)
 			return false;

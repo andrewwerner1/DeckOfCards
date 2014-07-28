@@ -1,5 +1,8 @@
 package test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cards.*;
 import static org.junit.Assert.*;
 
@@ -42,12 +45,24 @@ public class UnitTest {
 	
 	@Test
 	public void testAddCardsToDeck(){
+		DeckOfCards doc = new DeckOfCards();
+		List <Card> cards = new ArrayList <Card>();
+		Card card1 = new Card (Enums.Suit.CLUBS, Enums.Value.ACE);
+		Card card2 = new Card (Enums.Suit.SPADES, Enums.Value.ACE);
+		cards.add(card1);
+		cards.add(card2);
+		doc.addCardsToDeck(Enums.Position.TOP, cards);
+		assertTrue(doc.getCards().get(0).getSuit() == Enums.Suit.CLUBS && 
+				doc.getCards().get(0).getValue() == Enums.Value.ACE);
 		
 	}
 	
 	@Test
 	public void testGetCardsFromDeck(){
-		
+		DeckOfCards doc = new DeckOfCards();
+		List<Card> cards = new ArrayList <Card> ();
+		cards.addAll(doc.getCardsFromDeck(Enums.Position.TOP, 7));
+		assertTrue(cards.size() == 7);
 	}
 	
 	

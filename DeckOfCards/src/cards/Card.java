@@ -8,14 +8,12 @@ public class Card {
 
 	private Enums.Suit suit;
 	private Enums.Value value;
-	private int orderInDeck;
 	
 	
 	
-	public Card(Enums.Suit suit, Enums.Value value, int orderInDeck){
+	public Card(Enums.Suit suit, Enums.Value value){
 		this.setSuit(suit);
 		this.setValue(value);
-		this.setOrderInDeck(orderInDeck);
 		
 	}
 
@@ -43,17 +41,6 @@ public class Card {
 		this.value = value;
 	}
 
-
-
-	public int getOrderInDeck() {
-		return orderInDeck;
-	}
-
-
-
-	private void setOrderInDeck(int orderInDeck) {
-		this.orderInDeck = orderInDeck;
-	}
 	
 	
 	
