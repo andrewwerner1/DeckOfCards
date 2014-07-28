@@ -93,23 +93,26 @@ public class DeckOfCards {
 	 * 
 	 * @return shuffled version of current deck of cards
 	 */
-	public DeckOfCards shuffleDeckOfCards(){
-		DeckOfCards shuffledDeck = new DeckOfCards();
-		List <Card> shuffledCards = new ArrayList <Card>();
-		Iterator<Card> iterator = this.getCards().iterator();
-		while (iterator.hasNext()){
-		    
-		    // nextInt is normally exclusive of the top value,
-		    // so add 1 to make it inclusive
-		    int randomNum = rand.nextInt((51 - 0) + 1) + 0;
-		    shuffledCards.add(randomNum, iterator.next());
+	public void shuffleDeckOfCards(){
+		List <Card> shuffledCards = new ArrayList <Card>(this.getNumberOfCardsInDeck());
+
+		try{
+			while (this.getNumberOfCardsInDeck() > 0){
+			    
+			    // nextInt is normally exclusive of the top value,
+			    // so add 1 to make it inclusive
+			    int randomNum = rand.nextInt((this.getNumberOfCardsInDeck()-1 - 0) + 1) + 0;
+			    shuffledCards.add(this.getCards().remove(randomNum));
+			}
 		}
-		shuffledDeck.setDeckOfCards(shuffledCards);
-		return shuffledDeck;
+		catch( Exception e){
+			System.out.println("Exception is" + e.toString());
+		}
+		this.setDeckOfCards(shuffledCards);
 
 	}
 
-	/**
+	/** 
 	 * 
 	 * @return
 	 */
@@ -165,6 +168,26 @@ public class DeckOfCards {
 			break;
 		}
 		return cardsFromDeck;
+	}
+	
+	public boolean addCardsToDeck(Enums.Position pos, List<Card> cards){
+		if(cards == null || cards.size()==0)
+			return false;
+		boolean result = false;
+		switch(pos){
+		case TOP:
+			result = this.getCards().addAll(0, cards);
+			break;
+		case BOTTOM:
+			result = this.getCards().addAll(getNumberOfCardsInDeck()-1, cards);
+			break;
+		case RANDOM:
+			int randomNum = rand.nextInt((this.getNumberOfCardsInDeck()-1 - 0) + 1) + 0;
+			result = this.getCards().addAll(randomNum, cards);
+			break;
+		
+		}
+		return result;
 	}
 	
 
