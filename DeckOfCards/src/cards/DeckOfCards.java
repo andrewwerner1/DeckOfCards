@@ -1,5 +1,6 @@
 package cards;
 import java.util.ArrayList;
+import common.*;
 import java.util.List;
 import java.util.Random;
 
@@ -146,26 +147,7 @@ public class DeckOfCards {
 	 * spot in the deck given by pos paramter.
 	 */
 	public List<Card> getCardsFromDeck( Enums.Position pos, int numberOfCards){
-		List <Card> cardsFromDeck = new ArrayList <Card>();
-		
-		switch(pos){
-		case TOP:
-			for (int i=0; i<numberOfCards; i++){
-				cardsFromDeck.add(this.getCards().remove(i));
-			}
-			break;
-		case BOTTOM:
-			for (int i = this.getNumberOfCardsInDeck()-1; i<numberOfCards; i--){
-				cardsFromDeck.add(this.getCards().remove(i));
-			}
-			break;
-		case RANDOM:
-			for(int i=0; i< numberOfCards; i++){
-			int randomNum = rand.nextInt((this.getNumberOfCardsInDeck()-1 - 0) + 1) + 0;
-			cardsFromDeck.add(this.getCards().remove(randomNum));
-			}
-			break;
-		}
+		List <Card> cardsFromDeck = Common.removeCardsFromList(pos, numberOfCards, this.getCards());
 		return cardsFromDeck;
 	}
 	
@@ -176,23 +158,31 @@ public class DeckOfCards {
 	 * @return true if list of cards added successfully, false otherwise
 	 */
 	public boolean addCardsToDeck(Enums.Position pos, List<Card> cards){
-		if(cards == null || cards.size()==0)
-			return false;
-		boolean result = false;
-		switch(pos){
-		case TOP:
-			result = this.getCards().addAll(0, cards);
-			break;
-		case BOTTOM:
-			result = this.getCards().addAll(getNumberOfCardsInDeck()-1, cards);
-			break;
-		case RANDOM:
-			int randomNum = rand.nextInt((this.getNumberOfCardsInDeck()-1 - 0) + 1) + 0;
-			result = this.getCards().addAll(randomNum, cards);
-			break;
-		
-		}
+
+		boolean result = Common.addCardsToList(pos, cards, this.getCards());
 		return result;
+	}
+	
+
+	/**
+	 * 
+	 * @param pos
+	 * @param card
+	 * adds card to deck at specified position.
+	 */
+	public void addCardToDeck(Enums.Position pos, Card card){
+		Common.addCardToList(pos, card, this.getCards());
+		return;
+	}
+	
+	/**
+	 * 
+	 * @param pos
+	 * @return card from deck at specified position.
+	 */
+	public Card pullCardFromDeck(Enums.Position pos){
+		Card card = Common.removeCardFromList(pos, this.getCards());
+		return card;
 	}
 	
 
