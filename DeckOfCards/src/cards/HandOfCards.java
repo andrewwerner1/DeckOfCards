@@ -10,10 +10,20 @@ public class HandOfCards {
 
 	/**
 	 * 
-	 * @param hand
+	 * @param creates a hand of cards from list of cards passed in
 	 */
 	public HandOfCards(List<Card> hand){
 		this.hand = hand;
+	}
+	
+	/**
+	 * 
+	 * @param numbOfCards
+	 * Creates a hand of cards from passed in DeckOfCards. Size of hand of cards given by numbOfCards parameter. Cards come from Top of deck.
+	 */
+	public HandOfCards(int numbOfCards, DeckOfCards doc){
+
+		this.setHand(doc.getCardsFromDeck(Enums.Position.TOP, numbOfCards));
 	}
 	
 	/**
